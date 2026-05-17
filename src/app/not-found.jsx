@@ -10,7 +10,7 @@ const NotFound = () => {
     <div className="min-h-[65vh] flex flex-col items-center justify-center text-center px-4 relative">
       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-64 h-64 bg-violet-200/20 rounded-full blur-3xl -z-10" />
       <div className="relative mb-4">
-        <span className="text-6xl sm:text-7xl font-extrabold text-transparent bg-clip-text bg-gradient-to-b from-indigo-500 to-indigo-200 select-none tracking-tight">
+        <span className="text-7xl sm:text-7xl font-extrabold text-transparent bg-clip-text bg-linear-to-b from-indigo-500 to-indigo-200 select-none tracking-tight">
           404
         </span>
         <div className="absolute -top-1 -right-3 bg-violet-100 text-violet-600 p-1.5 rounded-lg shadow-sm rotate-12">
