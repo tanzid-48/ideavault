@@ -14,6 +14,8 @@ import {
   Folder,
   MessageSquare,
 } from "lucide-react";
+import { HiOutlineLightBulb, HiOutlineSun, HiOutlineMoon } from "react-icons/hi";
+import { useTheme } from "next-themes";
 
 const defaultAvatar =
   "https://cdn.create.vista.com/api/media/small/73040253/stock-vector-male-avatar-icon";
@@ -25,15 +27,18 @@ const Navbar = () => {
 
   const [isLoggedIn, setIsLoggedIn] = useState(true);
 
-  const navLink = (path) =>
-    `font-semibold text-sm tracking-wide transition-colors flex items-center space-x-1.5 ${
-      pathname === path
-        ? "text-violet-600"
-        : "text-gray-600 hover:text-violet-600"
-    }`;
+    const { theme, setTheme } = useTheme();
+    const isDarkMode = theme === "dark";
+
+ const navLink = (path) =>
+  `font-semibold text-sm tracking-wide transition-colors flex items-center space-x-1.5 ${
+    pathname === path 
+      ? "text-violet-600 dark:text-violet-400" 
+      : "text-gray-600 dark:text-gray-300 hover:text-violet-600 dark:hover:text-violet-400"
+  }`;
 
   return (
-    <nav className="bg-white/80  backdrop-blur-md border-b border-gray-100 sticky top-0 z-50 shadow-sm">
+    <nav className="bg-white/80 dark:bg-gray-900/80 backdrop-blur-md border-b border-gray-100 dark:border-gray-800 sticky top-0 z-50 shadow-sm">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between h-16">
           <div className="flex items-center">
@@ -42,9 +47,7 @@ const Navbar = () => {
               className="flex items-center space-x-2 text-indigo-600 font-extrabold text-xl tracking-wider"
             >
               <Lightbulb className="h-6 w-6 stroke-[2.5] text-violet-500 animate-pulse" />
-              <span>
-                Idea<span className="text-violet-600">Vault</span>
-              </span>
+            <span>Idea<span className="text-violet-600 dark:text-violet-400">Vault</span></span>
             </Link>
           </div>
           <div className="hidden md:flex items-center space-x-8">
@@ -69,6 +72,20 @@ const Navbar = () => {
           </div>
 
           <div className="hidden md:flex items-center space-x-4">
+
+            <button
+              onClick={() => setTheme(isDarkMode ? "light" : "dark")}
+              className="p-2 text-gray-500 hover:text-indigo-600 bg-gray-50 hover:bg-indigo-50 rounded-xl transition-all shadow-sm border border-gray-100 flex items-center justify-center active:scale-95"
+              title={isDarkMode ? "Switch to Light Mode" : "Switch to Dark Mode"}
+            >
+              {isDarkMode ? (
+                <HiOutlineSun className="h-5 w-5 text-amber-500 animate-spin-slow" />
+              ) : (
+                <HiOutlineMoon className="h-5 w-5 text-indigo-600" />
+              )}
+            </button>
+           
+
             {isLoggedIn ? (
               <div className="relative">
                 <button
@@ -83,7 +100,7 @@ const Navbar = () => {
                 </button>
 
                 {isProfileOpen && (
-                  <div className="absolute right-0 mt-2 w-56 bg-white rounded-xl shadow-xl py-2 border border-gray-100/80 z-50">
+                  <div className="absolute right-0 mt-2 w-56 bg-white dark:bg-gray-800 rounded-xl shadow-xl py-2 border border-gray-100/80 dark:border-gray-700 z-50">
                     <div className="px-4 py-2 border-b border-gray-50">
                       <p className="text-sm font-bold text-gray-800">Tanzid</p>
                       <p className="text-xs text-gray-400 truncate">
@@ -130,7 +147,14 @@ const Navbar = () => {
               </div>
             )}
           </div>
-          <div className="flex items-center md:hidden">
+          <div className="flex items-center space-x-3 md:hidden">
+            <button
+            onClick={() => setTheme(isDarkMode ? "light" : "dark")}
+              className="p-1.5 text-gray-500 bg-gray-50 rounded-lg border border-gray-100"
+            >
+              {isDarkMode ? <HiOutlineSun className="h-4 w-4 text-amber-500" /> : <HiOutlineMoon className="h-4 w-4 text-indigo-600" />}
+            </button>
+          
             <button
               onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
               className="text-indigo-600 focus:outline-none p-1"
@@ -145,7 +169,7 @@ const Navbar = () => {
         </div>
       </div>
       {isMobileMenuOpen && (
-        <div className="md:hidden bg-white border-t border-gray-100 px-4 pt-2 pb-4 space-y-1.5 shadow-inner">
+        <div className="md:hidden bg-white dark:bg-gray-900 border-t border-gray-100 dark:border-gray-800 px-4 pt-2 pb-4 space-y-1.5 shadow-inner">
           <Link
             href="/"
             onClick={() => setIsMobileMenuOpen(false)}
