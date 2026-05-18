@@ -1,6 +1,9 @@
 "use server";
 
+import { revalidatePath } from "next/cache";
 import { getCleanFormData } from "./utils";
+import { redirect } from "next/navigation";
+
 
 export const createIdea = async (formData) => {
   const newIdea = getCleanFormData(formData);
@@ -12,8 +15,13 @@ export const createIdea = async (formData) => {
     },
     body: JSON.stringify(newIdea),
   });
-   
+
+    if (!res.ok) {
+    return { success: false, message: "Server error. Try again!" };
+  }
   const data = await res.json();
- //TODO    
-   return data;
+ revalidatePath("/ideas");
+redirect("/ideas");
+// return data;
+   
 };
