@@ -12,6 +12,7 @@ import {
   ArrowRight,
   ChevronDown,
 } from "lucide-react";
+import { createIdea } from "@/lib/action";
 
 const categories = [
   "Tech",
@@ -43,7 +44,7 @@ const AddIdeaPage = () => {
           </p>
         </div>
 
-        <form className="space-y-10 bg-white dark:bg-zinc-900/30 border border-gray-100 dark:border-zinc-800/60 p-6 sm:p-10 rounded-[2.5rem] shadow-xl shadow-gray-100/40 dark:shadow-none backdrop-blur-md">
+        <form action={createIdea} className="space-y-10 bg-white dark:bg-zinc-900/30 border border-gray-100 dark:border-zinc-800/60 p-6 sm:p-10 rounded-[2.5rem] shadow-xl shadow-gray-100/40 dark:shadow-none backdrop-blur-md">
           <div className="space-y-6">
             <h3 className="text-md font-bold text-gray-800 dark:text-zinc-200 flex items-center gap-2 border-b border-gray-100 dark:border-zinc-800/80 pb-3 tracking-wide uppercase text-xs">
               <Layers className="h-4 w-4 text-indigo-500" /> Basic Overview
@@ -55,6 +56,7 @@ const AddIdeaPage = () => {
                   Idea Title
                 </label>
                 <input
+                name="title"
                   type="text"
                   required
                   placeholder="e.g., AI-Driven Micro-Grid Energy Optimizer"
@@ -68,6 +70,7 @@ const AddIdeaPage = () => {
                 </label>
                 <div className="relative">
                   <select
+                  name="category"
                     required
                     defaultValue=""
                     className={`${inputBaseStyles} cursor-pointer appearance-none pr-10 text-gray-900 dark:text-zinc-100`}
@@ -102,6 +105,7 @@ const AddIdeaPage = () => {
                 <div className="relative">
                   <Tag className="absolute left-4 top-3.5 h-4 w-4 text-gray-400 dark:text-zinc-500" />
                   <input
+                   name="tags"
                     type="text"
                     placeholder="automation, green-tech, web3"
                     className={`${inputBaseStyles} pl-11`}
@@ -113,6 +117,7 @@ const AddIdeaPage = () => {
                   Short Description
                 </label>
                 <input
+                name="shortDescription" 
                   type="text"
                   required
                   maxLength={150}
@@ -125,6 +130,7 @@ const AddIdeaPage = () => {
                   Detailed Breakdown
                 </label>
                 <textarea
+                name="details"
                   required
                   rows={4}
                   placeholder="Explain the entire core mechanism, how it operates, technical dependencies, and future features..."
@@ -146,6 +152,7 @@ const AddIdeaPage = () => {
                 <div className="relative">
                   <AlertCircle className="absolute left-4 top-4 h-4 w-4 text-rose-400" />
                   <textarea
+                  name="problemStatement"
                     required
                     rows={3}
                     placeholder="What specific issue or friction point in the market does this solve? Be descriptive."
@@ -160,6 +167,7 @@ const AddIdeaPage = () => {
                 <div className="relative">
                   <CheckCircle className="absolute left-4 top-4 h-4 w-4 text-emerald-400" />
                   <textarea
+                  name="solution"
                     required
                     rows={3}
                     placeholder="How does your concept solve the problem optimally? What is your unfair advantage?"
@@ -182,6 +190,7 @@ const AddIdeaPage = () => {
                 <div className="relative">
                   <Users className="absolute left-4 top-3.5 h-4 w-4 text-gray-400 dark:text-zinc-500" />
                   <input
+                   name="targetAudience"
                     type="text"
                     required
                     placeholder="e.g., Small businesses, Gen-Z students, Devs"
@@ -201,6 +210,7 @@ const AddIdeaPage = () => {
                 <div className="relative">
                   <DollarSign className="absolute left-4 top-3.5 h-4 w-4 text-gray-400 dark:text-zinc-500" />
                   <input
+                  name="estimatedBudget"
                     type="number"
                     placeholder="e.g., 5000 (in USD)"
                     className={`${inputBaseStyles} pl-11`}
@@ -215,6 +225,7 @@ const AddIdeaPage = () => {
                 <div className="relative">
                   <ImageIcon className="absolute left-4 top-3.5 h-4 w-4 text-gray-400 dark:text-zinc-500" />
                   <input
+                  name="image"
                     type="url"
                     required
                     placeholder="https://images.unsplash.com/photo-..."
