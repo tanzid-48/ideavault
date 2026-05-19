@@ -16,12 +16,13 @@ export const createIdea = async (formData) => {
     body: JSON.stringify(newIdea),
   });
 
-    if (!res.ok) {
+  if (!res.ok) {
     return { success: false, message: "Server error. Try again!" };
   }
   const data = await res.json();
- revalidatePath("/ideas");
-redirect("/ideas");
-// return data;
-   
+  
+revalidatePath("/idea");
+revalidatePath("/myIdeas");
+redirect("/myIdeas");
+  // return data;
 };
