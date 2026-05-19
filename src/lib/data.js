@@ -15,13 +15,13 @@ export const getAllIdeas = async () => {
 // Trending Ideas Section
 
 export const getTrendingIdeas = async () => {
-  const res = await fetch('http://localhost:5000/trending-ideas', {
-    cache: 'no-store'
+  const res = await fetch("http://localhost:5000/trending-ideas", {
+    cache: "no-store",
   });
 
   if (!res.ok) {
-      throw new Error(`Server returned status: ${res.status}`);
-    }
+    return { success: false, message: "Server error. Try again!" };
+  }
 
   const data = await res.json();
   return data;

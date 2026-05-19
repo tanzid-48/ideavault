@@ -20,12 +20,15 @@ export default function RootLayout({ children }) {
       lang="en"  suppressHydrationWarning
       className={`light ${inter.className} h-full antialiased`}
     >
-      <body className="min-h-full bg-gray-50 dark:bg-gray-900 text-gray-900 dark:text-gray-100 flex flex-col transition-colors duration-300">
-         <Provider>
+      <body
+     
+       className="min-h-full bg-gray-50 dark:bg-gray-900 text-gray-900 dark:text-gray-100 flex flex-col transition-colors duration-300">
 
+       <Provider>
         <Navbar></Navbar>
         <main className="grow w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-0 pb-10">
           {children}</main>
+
           <Footer />
 
          </Provider>
