@@ -26,7 +26,7 @@ export default function RootLayout({ children }) {
 
        <Provider>
         <Navbar></Navbar>
-        <main className="grow w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-0 pb-10">
+        <main className="grow w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-0 ">
           {children}</main>
 
           <Footer />

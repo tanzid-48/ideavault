@@ -81,7 +81,7 @@ const HowItWorksSection = () => {
       />
 
       <div className="relative max-w-7xl mx-auto px-4 sm:px-6">
-        <div className="flex flex-col items-center text-center mb-16 space-y-4">
+        <div className="flex flex-col items-center text-center mb-12 space-y-4">
           <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-indigo-200 dark:border-indigo-800/50 bg-indigo-50 dark:bg-indigo-950/30 text-indigo-600 dark:text-indigo-400 text-[11px] font-bold uppercase tracking-widest">
             <Rocket className="h-3 w-3" />
             The Process
@@ -114,7 +114,7 @@ const HowItWorksSection = () => {
                     }}
                   />
                   <div className="relative flex items-center justify-between">
-                    <span className="text-5xl font-black text-gray-100 dark:text-zinc-800 leading-none select-none tabular-nums">
+                    <span className="text-5xl font-black text-gray-100 dark:text-zinc-800 leading-none select-none tabular-num">
                       {s.step}
                     </span>
                     <span
