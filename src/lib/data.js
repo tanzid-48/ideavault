@@ -12,6 +12,17 @@ export const getAllIdeas = async () => {
   return data;
 };
 
+// get a single idea to show details
+export const getSinglesIdea = async (_id) => {
+  const res = await fetch(`http://localhost:5000/ideas/${_id}`);
+
+  if (!res.ok) {
+    throw new Error("Failed to fetch the requested idea");
+  }
+
+  return res.json();
+};
+
 // Trending Ideas Section
 
 export const getTrendingIdeas = async () => {
