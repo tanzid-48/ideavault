@@ -48,7 +48,7 @@ const projects = [
 
 const CoFounderSection = () => {
   return (
-    <section className="py-20 bg-white dark:bg-zinc-950 border-y border-gray-100 dark:border-zinc-900">
+    <section className="py-20 bg-gray-200 dark:bg-zinc-950 border-y border-gray-100 dark:border-zinc-900">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
 
         <div className="flex flex-col items-center text-center mb-14 space-y-3">
