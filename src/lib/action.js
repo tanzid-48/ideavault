@@ -7,23 +7,46 @@ import { redirect } from "next/navigation";
 export const createIdea = async (formData) => {
   const newIdea = getCleanFormData(formData);
 
+  // ✅ userEmail add করো — পরে BetterAuth দিলে replace হবে
+  const ideaWithUser = {
+    ...newIdea,
+    userEmail: "tanzid@gmail.com", // TODO: BetterAuth session
+  };
+
   const res = await fetch("http://localhost:5000/ideas", {
     method: "POST",
-    headers: {
-      "Content-type": "application/json",
-    },
-    body: JSON.stringify(newIdea),
+    headers: { "Content-type": "application/json" },
+    body: JSON.stringify(ideaWithUser),
   });
 
   if (!res.ok) {
     return { success: false, message: "Server error. Try again!" };
   }
-  const data = await res.json();
 
-  revalidatePath("/idea");
+  revalidatePath("/ideas");
   revalidatePath("/myIdeas");
   redirect("/myIdeas");
-  // return data;
+};
+// delete idea
+export const deleteIdea = async (id) => {
+  const res = await fetch(`http://localhost:5000/ideas/${id}`, {
+    method: "DELETE",
+  });
+  if (!res.ok) return { success: false };
+  revalidatePath("/myIdeas");
+  return { success: true };
+};
+// updated idea
+export const updateIdea = async (id, updatedData) => {
+  const res = await fetch(`http://localhost:5000/ideas/${id}`, {
+    method: "PATCH",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(updatedData),
+  });
+  if (!res.ok) return { success: false, message: "Failed to update." };
+  revalidatePath(`/myIdeas`);
+  revalidatePath("/myIdeas");
+  return { success: true };
 };
 
 // Post data in to Database

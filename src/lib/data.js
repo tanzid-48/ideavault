@@ -52,3 +52,11 @@ export const getMyComments = async (userEmail) => {
     return [];
   }
 };
+// my ideas
+export const getMyIdeas = async (email) => {
+  const res = await fetch(`http://localhost:5000/ideas?email=${email}`, {
+    cache: "no-store",
+  });
+  if (!res.ok) return [];
+  return await res.json();
+};
