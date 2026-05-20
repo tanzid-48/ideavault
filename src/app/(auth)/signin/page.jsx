@@ -12,7 +12,7 @@ import {
   TextField,
 } from "@heroui/react";
 import Link from "next/link";
-import {  useRouter } from "next/navigation";
+import {  useRouter, useSearchParams } from "next/navigation";
 import { useState } from "react";
 import { FcGoogle as GoogleIcon } from "react-icons/fc";
 import { FiEye, FiEyeOff } from "react-icons/fi";
@@ -20,7 +20,9 @@ import { toast } from "sonner";
 
 const LoginPage = () => {
 
+   const searchParams = useSearchParams();
   const router = useRouter();
+  const callbackUrl = searchParams.get("callbackUrl") || "/";
   const [isPasswordVisible, setIsPasswordVisible] = useState(false);
   const [loading, setLoading] = useState(false);
 
@@ -34,6 +36,7 @@ const LoginPage = () => {
     const { data, error } = await authClient.signIn.email({
       email: user.email,
       password: user.password,
+      callbackURL: callbackUrl,
     });
     setLoading(false);
 
@@ -43,12 +46,12 @@ const LoginPage = () => {
     }
 
     toast.success("Login successful!");
-    router.push("/");
+    router.push('/');
   };
    const handleGoogleSignIn = async () => {
   const { data, error } = await authClient.signIn.social({
     provider: "google",
-    callbackURL: "/",
+     callbackURL: callbackUrl,
   });
    if (error) {
     toast.error(error.message || "Google sign in failed.");
