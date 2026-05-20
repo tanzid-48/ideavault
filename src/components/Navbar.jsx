@@ -3,7 +3,7 @@
 import React, { useState } from "react";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
-import { Avatar } from "@heroui/react";
+
 import { authClient } from "@/lib/auth-client";
 import {
   Menu,
@@ -75,6 +75,8 @@ const Navbar = () => {
               </span>
             </Link>
           </div>
+          
+          {/* Desktop Navigation - সবগুলো লিংক ওপেন করে দেওয়া হয়েছে */}
           <div className="hidden md:flex items-center space-x-8">
             <Link href="/" className={navLink("/")}>
               <span>Home</span>
@@ -82,31 +84,22 @@ const Navbar = () => {
             <Link href="/ideas" className={navLink("/ideas")}>
               <span>Ideas</span>
             </Link>
-
-            {isLoggedIn && (
-              <>
-                <Link href="/addIdea" className={navLink("/addIdea")}>
-                  <PlusCircle className="h-4 w-4 stroke-2" />
-                  <span>Add Idea</span>
-                </Link>
-                <Link href="/myIdeas" className={navLink("/myIdeas")}>
-                  <Folder className="h-4 w-4 stroke-2" />
-                  <span>My Ideas</span>
-                </Link>
-                <Link
-                  href="/myInteractions"
-                  className={navLink("/myInteractions")}
-                >
-                  <MessageSquare className="h-4 w-4 stroke-2" />
-                  <span>My Interactions</span>
-                </Link>
-              </>
-            )}
+            <Link href="/addIdea" className={navLink("/addIdea")}>
+              <PlusCircle className="h-4 w-4 stroke-2" />
+              <span>Add Idea</span>
+            </Link>
+            <Link href="/myIdeas" className={navLink("/myIdeas")}>
+              <Folder className="h-4 w-4 stroke-2" />
+              <span>My Ideas</span>
+            </Link>
+            <Link href="/myInteractions" className={navLink("/myInteractions")}>
+              <MessageSquare className="h-4 w-4 stroke-2" />
+              <span>My Interactions</span>
+            </Link>
           </div>
 
           <div className="hidden md:flex items-center space-x-4">
- 
-            <button
+          <button
               onClick={() => setTheme(isDarkMode ? "light" : "dark")}
               className="p-2 text-gray-500 hover:text-indigo-600 bg-gray-50 hover:bg-indigo-50 rounded-xl transition-all shadow-sm border border-gray-100 flex items-center justify-center active:scale-95 cursor-pointer"
               title={
@@ -129,12 +122,11 @@ const Navbar = () => {
                   className="flex items-center focus:outline-none p-0.5 rounded-full border-2 border-transparent hover:border-violet-500 transition-all shadow-sm cursor-pointer"
                 >
                   <Image
-                    alt = {user?.name }
+                    alt={user?.name || "User"}
                     width={32}
                     height={32}
                     src={user?.image || defaultAvatar}
-                    name={user?.name || "User"}
-                    className="w-8 h-8 text-sm rounded-full"
+                    className="w-8 h-8 text-sm rounded-full object-cover"
                     referrerPolicy="no-referrer"
                   />
                 </button>
@@ -185,6 +177,7 @@ const Navbar = () => {
                 </Link>
               </div>
             )}
+ 
           </div>
           <div className="flex items-center space-x-3 md:hidden">
             <button
@@ -212,6 +205,7 @@ const Navbar = () => {
         </div>
       </div>
 
+      {/* Mobile Menu - এখানেও কন্ডিশন ছাড়া সব লিংক ওপেন করা হয়েছে */}
       {isMobileMenuOpen && (
         <div className="md:hidden bg-white dark:bg-gray-900 border-t border-gray-100 dark:border-gray-800 px-4 pt-2 pb-4 space-y-1.5 shadow-inner">
           <Link
@@ -228,32 +222,27 @@ const Navbar = () => {
           >
             Ideas
           </Link>
-
-          {isLoggedIn && (
-            <>
-              <Link
-                href="/addIdea"
-                onClick={() => setIsMobileMenuOpen(false)}
-                className="block px-3 py-2 rounded-xl text-base font-semibold text-gray-700 dark:text-gray-300 hover:bg-violet-50 dark:hover:bg-gray-800 hover:text-violet-600"
-              >
-                Add Idea
-              </Link>
-              <Link
-                href="/myIdeas"
-                onClick={() => setIsMobileMenuOpen(false)}
-                className="block px-3 py-2 rounded-xl text-base font-semibold text-gray-700 dark:text-gray-300 hover:bg-violet-50 dark:hover:bg-gray-800 hover:text-violet-600"
-              >
-                My Ideas
-              </Link>
-              <Link
-                href="/myInteractions"
-                onClick={() => setIsMobileMenuOpen(false)}
-                className="block px-3 py-2 rounded-xl text-base font-semibold text-gray-700 dark:text-gray-300 hover:bg-violet-50 dark:hover:bg-gray-800 hover:text-violet-600"
-              >
-                My Interactions
-              </Link>
-            </>
-          )}
+          <Link
+            href="/addIdea"
+            onClick={() => setIsMobileMenuOpen(false)}
+            className="block px-3 py-2 rounded-xl text-base font-semibold text-gray-700 dark:text-gray-300 hover:bg-violet-50 dark:hover:bg-gray-800 hover:text-violet-600"
+          >
+            Add Idea
+          </Link>
+          <Link
+            href="/myIdeas"
+            onClick={() => setIsMobileMenuOpen(false)}
+            className="block px-3 py-2 rounded-xl text-base font-semibold text-gray-700 dark:text-gray-300 hover:bg-violet-50 dark:hover:bg-gray-800 hover:text-violet-600"
+          >
+            My Ideas
+          </Link>
+          <Link
+            href="/myInteractions"
+            onClick={() => setIsMobileMenuOpen(false)}
+            className="block px-3 py-2 rounded-xl text-base font-semibold text-gray-700 dark:text-gray-300 hover:bg-violet-50 dark:hover:bg-gray-800 hover:text-violet-600"
+          >
+            My Interactions
+          </Link>
 
           <hr className="border-gray-100 dark:border-gray-800 my-1" />
 

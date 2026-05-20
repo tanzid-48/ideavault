@@ -39,10 +39,10 @@ export const getTrendingIdeas = async () => {
 };
 
 // get comment data 
-export const getMyComments = async (userEmail) => {
+export const getMyComments = async (userId) => {
   try {
-    const res = await fetch(`http://localhost:5000/comment?email=${userEmail}`, {
-      cache: "no-store",
+    const res = await fetch(`http://localhost:5000/comment?userId=${userId}`, {
+    cache: "no-store",
     });
 
     if (!res.ok) return [];
@@ -53,8 +53,8 @@ export const getMyComments = async (userEmail) => {
   }
 };
 // my ideas
-export const getMyIdeas = async (email) => {
-  const res = await fetch(`http://localhost:5000/ideas?email=${email}`, {
+export const getMyIdeas = async (userId) => {
+  const res = await fetch(`http://localhost:5000/ideas?userId=${userId}`, {
     cache: "no-store",
   });
   if (!res.ok) return [];

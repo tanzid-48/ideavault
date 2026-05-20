@@ -3,15 +3,22 @@
 import { revalidatePath } from "next/cache";
 import { getCleanFormData } from "./utils";
 import { redirect } from "next/navigation";
+import { auth } from "@/lib/auth";
+import { headers } from "next/headers";
 
 export const createIdea = async (formData) => {
+  const session = await auth.api.getSession({
+    headers: await headers(),
+  });
   const newIdea = getCleanFormData(formData);
 
-  // ✅ userEmail add করো — পরে BetterAuth দিলে replace হবে
+
   const ideaWithUser = {
-    ...newIdea,
-    userEmail: "tanzid@gmail.com", // TODO: BetterAuth session
-  };
+  ...newIdea,
+  userId: session?.user?.id,    
+  userEmail: session?.user?.email, 
+  userName: session?.user?.name,
+};
 
   const res = await fetch("http://localhost:5000/ideas", {
     method: "POST",
@@ -66,8 +73,8 @@ export const postComment = async (commentData) => {
 
   const data = await res.json();
   if (commentData.ideaId) {
-  revalidatePath(`/ideas/${commentData.ideaId}`);
-}
+    revalidatePath(`/ideas/${commentData.ideaId}`);
+  }
   revalidatePath("/myInteractions");
   return { success: true, message: "Comment posted successfully!" };
 };
@@ -77,11 +84,11 @@ export const deleteComment = async (commentId, ideaId) => {
   const res = await fetch(`http://localhost:5000/comment/${commentId}`, {
     method: "DELETE",
   });
- 
+
   if (!res.ok) {
     return { success: false, message: "Failed to delete comment." };
   }
- 
+
   if (ideaId) {
     revalidatePath(`/ideas/${ideaId}`);
   }
@@ -96,11 +103,11 @@ export const updateComment = async (commentId, newText, ideaId) => {
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({ text: newText }),
   });
- 
+
   if (!res.ok) {
     return { success: false, message: "Failed to update comment." };
   }
- 
+
   if (ideaId) {
     revalidatePath(`/ideas/${ideaId}`);
   }

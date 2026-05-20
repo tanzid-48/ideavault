@@ -5,11 +5,14 @@ import { Form } from "@heroui/react";
 import { postComment } from "@/lib/action";
 import { toast } from "sonner";
 import CommentCard from "./CommentCard";
+import { authClient } from "@/lib/auth-client";
 
 const CommentSection = ({ ideaId, ideaTitle, user }) => {
-  const [comment, setComment] = useState("");
+  const { data: session } = authClient.useSession();
 
-  const [commentsList, setCommentsList] = useState([]);
+  
+ const [comment, setComment] = useState("");
+ const [commentsList, setCommentsList] = useState([]);
 
   const onSubmit = async (e) => {
     e.preventDefault();
@@ -17,18 +20,17 @@ const CommentSection = ({ ideaId, ideaTitle, user }) => {
 
     const data = Object.fromEntries(formData);
 
-    //  Todo use after use butterAuth
+ 
     const finalCommentData = {
-      ideaId: ideaId || "dummy_idea_id",
-      userName: user?.displayName || "Tanzid Test",
-      ideaTitle: ideaTitle || "Untitled Idea",
-      userEmail: user?.email || "tanzid@gmail.com",
+      ideaId,
+      ideaTitle,
+      userId: session?.user?.id,
+      userName: session?.user?.name,
+      userEmail: session?.user?.email,
       text: data.commentText,
       createdAt: new Date().toISOString(),
     };
-
-    console.log(finalCommentData);
-
+    
     const result = await postComment(finalCommentData);
 
     if (result?.success) {
@@ -67,11 +69,9 @@ const CommentSection = ({ ideaId, ideaTitle, user }) => {
             <CommentCard
               key={singleComment._id || index}
               userName={singleComment.userName}
-              text={singleComment.text}
-
+             text={singleComment.text}
               timestamp={new Date(singleComment.createdAt).toLocaleDateString()}
-
-              />
+            />
           ))
         ) : (
           <p className="text-sm text-center text-gray-400 dark:text-zinc-500 py-4">
@@ -80,8 +80,8 @@ const CommentSection = ({ ideaId, ideaTitle, user }) => {
         )}
       </div>
     </div>
-
-);
+  );
 };
 
 export default CommentSection;
+

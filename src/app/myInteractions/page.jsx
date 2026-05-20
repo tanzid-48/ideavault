@@ -1,11 +1,15 @@
 import CommentCard from "@/components/CommentCard";
 import { getMyComments } from "@/lib/data";
+import { headers } from "next/headers";
 import React from "react";
+import { auth } from "@/lib/auth";
 
 const MyInteractionsPage = async () => {
-  //   todo butter auth
-  const loggedInUserEmail = "tanzid@gmail.com";
-  const userComments = await getMyComments(loggedInUserEmail);
+
+const session = await auth.api.getSession({ headers: await headers() });
+const userId = session?.user?.id;
+const userComments = await getMyComments(userId);
+
   return (
     <div className="max-w-4xl mx-auto p-6 space-y-6 min-h-screen">
       <div className="border-b border-gray-200 dark:border-zinc-800 pb-4">
