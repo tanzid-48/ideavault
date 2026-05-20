@@ -1,15 +1,21 @@
-// all ideas
-export const getAllIdeas = async () => {
-  const res = await fetch("http://localhost:5000/ideas", {
-    cache: "no-store",
-  });
+// all ideas with search and filters
+export const getAllIdeas = async (filters = {}) => {
+  try {
+    const params = new URLSearchParams();
 
-  if (!res.ok) {
-    return { success: false, message: "Server error. Try again!" };
+    if (filters.search) params.append("search", filters.search);
+    if (filters.category) params.append("category", filters.category);
+
+    const res = await fetch(`http://localhost:5000/ideas?${params.toString()}`, {
+      cache: "no-store",
+    });
+
+    if (!res.ok) return [];
+    return await res.json();
+  } catch (error) {
+    console.error("Error in getAllIdeas:", error);
+    return [];
   }
-
-  const data = await res.json();
-  return data;
 };
 
 // get a single idea to show details
@@ -38,11 +44,11 @@ export const getTrendingIdeas = async () => {
   return data;
 };
 
-// get comment data 
+// get comment data
 export const getMyComments = async (userId) => {
   try {
     const res = await fetch(`http://localhost:5000/comment?userId=${userId}`, {
-    cache: "no-store",
+      cache: "no-store",
     });
 
     if (!res.ok) return [];
