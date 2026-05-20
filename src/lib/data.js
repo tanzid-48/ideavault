@@ -37,3 +37,18 @@ export const getTrendingIdeas = async () => {
   const data = await res.json();
   return data;
 };
+
+// get comment data 
+export const getMyComments = async (userEmail) => {
+  try {
+    const res = await fetch(`http://localhost:5000/comment?email=${userEmail}`, {
+      cache: "no-store",
+    });
+
+    if (!res.ok) return [];
+    return await res.json();
+  } catch (error) {
+    console.error("My Interactions Fetch Error:", error);
+    return [];
+  }
+};

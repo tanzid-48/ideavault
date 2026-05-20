@@ -101,12 +101,13 @@ const DetailsPage = async ({ params }) => {
             </div>
           </div>
         </div>
-        <div className="max-w-3xl mx-auto border-t border-gray-200 dark:border-zinc-800 pt-10">
+       <div className="max-w-3xl mx-auto border-t border-gray-200 dark:border-zinc-800 pt-10">
           <h3 className="text-lg font-bold text-center text-gray-900 dark:text-white mb-6 tracking-tight">
             Discussion & Feedback
           </h3>
         </div>
-       <CommentSection></CommentSection>
+       <CommentSection ideaId={id} 
+          ideaTitle={title}></CommentSection>
       </div>
     </div>
   );

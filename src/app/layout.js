@@ -3,6 +3,8 @@ import "./globals.css";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import Provider from "./Provider";
+import { Toaster } from "sonner";
+
 
 const inter = Inter({ 
   subsets: ["latin"],
@@ -30,7 +32,7 @@ export default function RootLayout({ children }) {
           {children}</main>
 
           <Footer />
-
+  <Toaster position="top-right" richColors />
          </Provider>
       </body>
     </html>

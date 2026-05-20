@@ -4,7 +4,6 @@ import { revalidatePath } from "next/cache";
 import { getCleanFormData } from "./utils";
 import { redirect } from "next/navigation";
 
-
 export const createIdea = async (formData) => {
   const newIdea = getCleanFormData(formData);
 
@@ -20,9 +19,32 @@ export const createIdea = async (formData) => {
     return { success: false, message: "Server error. Try again!" };
   }
   const data = await res.json();
-  
-revalidatePath("/idea");
-revalidatePath("/myIdeas");
-redirect("/myIdeas");
+
+  revalidatePath("/idea");
+  revalidatePath("/myIdeas");
+  redirect("/myIdeas");
   // return data;
+};
+
+// Post data in to Database
+
+export const postComment = async (commentData) => {
+  const res = await fetch("http://localhost:5000/comment", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(commentData),
+  });
+
+  if (!res.ok) {
+    return { success: false, message: "Failed to post comment on server." };
+  }
+
+  const data = await res.json();
+  if (commentData.ideaId) {
+  revalidatePath(`/ideas/${commentData.ideaId}`);
+}
+  revalidatePath("/myInteractions");
+  return { success: true, message: "Comment posted successfully!" };
 };
