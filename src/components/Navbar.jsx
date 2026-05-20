@@ -18,6 +18,7 @@ import {
 import { HiOutlineSun, HiOutlineMoon } from "react-icons/hi";
 import { useTheme } from "next-themes";
 import { toast } from "sonner";
+import Image from "next/image";
 
 const defaultAvatar =
   "https://cdn.create.vista.com/api/media/small/73040253/stock-vector-male-avatar-icon";
@@ -127,10 +128,14 @@ const Navbar = () => {
                   onClick={() => setIsProfileOpen(!isProfileOpen)}
                   className="flex items-center focus:outline-none p-0.5 rounded-full border-2 border-transparent hover:border-violet-500 transition-all shadow-sm cursor-pointer"
                 >
-                  <Avatar
+                  <Image
+                    alt = {user?.name }
+                    width={32}
+                    height={32}
                     src={user?.image || defaultAvatar}
                     name={user?.name || "User"}
-                    className="w-8 h-8 text-sm"
+                    className="w-8 h-8 text-sm rounded-full"
+                    referrerPolicy="no-referrer"
                   />
                 </button>
 

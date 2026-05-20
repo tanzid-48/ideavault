@@ -45,7 +45,21 @@ const RegistrationPage = () => {
 
     toast.success("Account created successfully! Please sign in.");
     router.push("/signin");
-  };
+  };  
+
+     const handleGoogleSignIn = async () => {
+    const { data, error } = await authClient.signIn.social({
+      provider: "google",
+      callbackURL: "/",
+    });
+     if (error) {
+      toast.error(error.message || "Google sign in failed.");
+      return; 
+    }
+    else{
+     toast.success("Google login successful!");
+    }
+    }
 
   return (
     <div className="min-h-screen flex flex-col items-center justify-center bg-[#fafafa] py-5">
@@ -166,6 +180,7 @@ const RegistrationPage = () => {
           </div>
 
           <Button
+           onClick={handleGoogleSignIn}
             variant="outline"
             className="w-full py-6 font-medium border border-gray-200 hover:bg-gray-200 text-gray-700 rounded-none cursor-pointer"
             type="button"
