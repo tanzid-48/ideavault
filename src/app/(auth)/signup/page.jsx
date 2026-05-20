@@ -1,4 +1,5 @@
 "use client";
+import { authClient } from "@/lib/auth-client";
 import {
   Button,
   Card,
@@ -10,17 +11,46 @@ import {
   TextField,
 } from "@heroui/react";
 import Link from "next/link";
+import { redirect } from "next/navigation";
 import { useState } from "react";
 import { FcGoogle as GoogleIcon } from "react-icons/fc";
 import { FiEye, FiEyeOff } from "react-icons/fi";
+import { toast } from "sonner";
 
 const RegistrationPage = () => {
   const [isPasswordVisible, setIsPasswordVisible] = useState(false);
+  const [loading, setLoading] = useState(false);
+
+  const onSubmit = async (e) => {
+    e.preventDefault();
+    setLoading(true);
+
+    const formData = new FormData(e.currentTarget);
+    const user = Object.fromEntries(formData.entries());
+
+    const { data, error } = await authClient.signUp.email({
+      name: user.name,
+      email: user.email,
+      password: user.password,
+      image: user.photoUrl || undefined,
+    });
+    setLoading(false);
+
+    if (error) {
+      toast.error(error.message || "Sign up failed. Please try again.");
+      return;
+    }
+
+    toast.success("Account created successfully! Please sign in.");
+    redirect("/signin");
+  };
 
   return (
     <div className="min-h-screen flex flex-col items-center justify-center bg-[#fafafa] py-5">
       <div className="text-center mb-6 flex flex-col items-center">
-        <h1 className="text-5xl font-bold text-gray-900 mb-3">Create Account</h1>
+        <h1 className="text-5xl font-bold text-gray-900 mb-3">
+          Create Account
+        </h1>
         <p className="text-gray-500 text-lg">
           Join the builder community at{" "}
           <span className="text-indigo-600 font-bold tracking-wide">
@@ -30,7 +60,7 @@ const RegistrationPage = () => {
       </div>
 
       <Card className="w-full max-w-lg p-10 shadow-sm rounded-md border border-gray-200/60 bg-white">
-        <Form className="flex flex-col gap-6">
+        <Form onSubmit={onSubmit} className="flex flex-col gap-6">
           <TextField name="name" type="text" className="w-full" isRequired>
             <Label className="font-semibold text-gray-800 text-sm mb-1 block">
               Full Name
@@ -110,16 +140,19 @@ const RegistrationPage = () => {
               </button>
             </div>
             <Description className="text-xs text-gray-400 mt-1">
-              Must be at least 6 characters with 1 uppercase and 1 lowercase letter.
+              Must be at least 6 characters with 1 uppercase and 1 lowercase
+              letter.
             </Description>
             <FieldError className="text-xs text-danger mt-1" />
           </TextField>
 
           <Button
             type="submit"
+             isLoading={loading}
+              isDisabled={loading}
             className="bg-indigo-600 w-full rounded-md hover:bg-indigo-700 text-white font-semibold py-6 text-base shadow-none transition-colors cursor-pointer"
           >
-            Sign Up
+             {loading ? "Creating Account..." : "Create Account"}
           </Button>
 
           <div className="flex items-center gap-3">
