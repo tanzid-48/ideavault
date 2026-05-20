@@ -48,3 +48,39 @@ export const postComment = async (commentData) => {
   revalidatePath("/myInteractions");
   return { success: true, message: "Comment posted successfully!" };
 };
+
+// Delete Comment
+export const deleteComment = async (commentId, ideaId) => {
+  const res = await fetch(`http://localhost:5000/comment/${commentId}`, {
+    method: "DELETE",
+  });
+ 
+  if (!res.ok) {
+    return { success: false, message: "Failed to delete comment." };
+  }
+ 
+  if (ideaId) {
+    revalidatePath(`/ideas/${ideaId}`);
+  }
+  revalidatePath("/myInteractions");
+  return { success: true, message: "Comment deleted!" };
+};
+
+// Update Comment
+export const updateComment = async (commentId, newText, ideaId) => {
+  const res = await fetch(`http://localhost:5000/comment/${commentId}`, {
+    method: "PATCH",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ text: newText }),
+  });
+ 
+  if (!res.ok) {
+    return { success: false, message: "Failed to update comment." };
+  }
+ 
+  if (ideaId) {
+    revalidatePath(`/ideas/${ideaId}`);
+  }
+  revalidatePath("/myInteractions");
+  return { success: true, message: "Comment updated!" };
+};

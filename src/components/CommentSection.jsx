@@ -6,8 +6,7 @@ import { postComment } from "@/lib/action";
 import { toast } from "sonner";
 import CommentCard from "./CommentCard";
 
-
-const CommentSection = ({ ideaId, ideaTitle, user,}) => {
+const CommentSection = ({ ideaId, ideaTitle, user }) => {
   const [comment, setComment] = useState("");
 
   const [commentsList, setCommentsList] = useState([]);
@@ -33,17 +32,16 @@ const CommentSection = ({ ideaId, ideaTitle, user,}) => {
     const result = await postComment(finalCommentData);
 
     if (result?.success) {
-        toast.success("Comment added successfully! ");
-        setCommentsList([finalCommentData, ...commentsList]);
-        setComment("");
-      } else {
-        toast.error("Something went wrong!");
-      }
+      toast.success("Comment added successfully! ");
+      setCommentsList([finalCommentData, ...commentsList]);
+      setComment("");
+    } else {
+      toast.error("Something went wrong!");
+    }
   };
 
   return (
-
-  <div className="max-w-3xl mx-auto w-full">
+    <div className="max-w-3xl mx-auto w-full">
       <Form onSubmit={onSubmit}>
         <div className="relative mb-8">
           <input
@@ -70,9 +68,10 @@ const CommentSection = ({ ideaId, ideaTitle, user,}) => {
               key={singleComment._id || index}
               userName={singleComment.userName}
               text={singleComment.text}
+
               timestamp={new Date(singleComment.createdAt).toLocaleDateString()}
-              
-            />
+
+              />
           ))
         ) : (
           <p className="text-sm text-center text-gray-400 dark:text-zinc-500 py-4">
@@ -81,8 +80,8 @@ const CommentSection = ({ ideaId, ideaTitle, user,}) => {
         )}
       </div>
     </div>
-    
-  );
+
+);
 };
 
 export default CommentSection;
