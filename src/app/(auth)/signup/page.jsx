@@ -11,13 +11,15 @@ import {
   TextField,
 } from "@heroui/react";
 import Link from "next/link";
-import { redirect } from "next/navigation";
+import {  useRouter } from "next/navigation";
 import { useState } from "react";
 import { FcGoogle as GoogleIcon } from "react-icons/fc";
 import { FiEye, FiEyeOff } from "react-icons/fi";
 import { toast } from "sonner";
 
 const RegistrationPage = () => {
+
+  const router = useRouter();
   const [isPasswordVisible, setIsPasswordVisible] = useState(false);
   const [loading, setLoading] = useState(false);
 
@@ -42,7 +44,7 @@ const RegistrationPage = () => {
     }
 
     toast.success("Account created successfully! Please sign in.");
-    redirect("/signin");
+    router.push("/signin");
   };
 
   return (

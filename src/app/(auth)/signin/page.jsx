@@ -1,4 +1,5 @@
 "use client";
+import { authClient } from "@/lib/auth-client";
 import {
   Button,
   Card,
@@ -11,12 +12,39 @@ import {
   TextField,
 } from "@heroui/react";
 import Link from "next/link";
+import {  useRouter } from "next/navigation";
 import { useState } from "react";
 import { FcGoogle as GoogleIcon } from "react-icons/fc";
 import { FiEye, FiEyeOff } from "react-icons/fi";
+import { toast } from "sonner";
 
 const LoginPage = () => {
+
+  const router = useRouter();
   const [isPasswordVisible, setIsPasswordVisible] = useState(false);
+  const [loading, setLoading] = useState(false);
+
+  const onSubmit = async (e) => {
+    e.preventDefault();
+    setLoading(true);
+
+    const formData = new FormData(e.currentTarget);
+    const user = Object.fromEntries(formData.entries());
+
+    const { data, error } = await authClient.signIn.email({
+      email: user.email,
+      password: user.password,
+    });
+    setLoading(false);
+
+    if (error) {
+      toast.error(error.message || "Login failed. Please try again.");
+      return;
+    }
+
+    toast.success("Login successful!");
+    router.push("/");
+  };
 
   return (
     <div className="min-h-screen flex flex-col items-center justify-center bg-[#fafafa] py-5">
@@ -30,7 +58,7 @@ const LoginPage = () => {
         </p>
       </div>
       <Card className="w-full max-w-lg p-10 shadow-sm rounded-md border border-gray-200/60 bg-white">
-        <Form className="flex flex-col gap-6">
+        <Form onSubmit={onSubmit} className="flex flex-col gap-6">
           <TextField name="email" type="email" className="w-full">
             <Label className="font-semibold text-gray-800 text-sm mb-1 block">
               Email Address
@@ -110,6 +138,8 @@ const LoginPage = () => {
           </div>
           <Button
             type="submit"
+            isLoading={loading}
+            isDisabled={loading}
             className="bg-indigo-600 w-full rounded-md hover:bg-indigo-700 text-white font-semibold py-6 text-base shadow-none transition-colors cursor-pointer"
           >
             Sign In
