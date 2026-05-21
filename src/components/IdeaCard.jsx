@@ -2,6 +2,7 @@ import { ArrowUpRight } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import React from "react";
+import SaveButton from "./SaveButton";
 
 const IdeaCard = ({ idea }) => {
   const { _id, title, category, shortDescription, image } = idea;
@@ -39,6 +40,7 @@ const IdeaCard = ({ idea }) => {
             <span>Explore Thesis</span>
             <ArrowUpRight className="h-3.5 w-3.5 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
           </Link>
+          <SaveButton ideaId={_id} />
         </div>
       </div>
 
