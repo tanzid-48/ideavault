@@ -75,7 +75,7 @@ const Navbar = () => {
               </span>
             </Link>
           </div>
-          
+
           {/* Desktop Navigation - সবগুলো লিংক ওপেন করে দেওয়া হয়েছে */}
           <div className="hidden md:flex items-center space-x-8">
             <Link href="/" className={navLink("/")}>
@@ -99,7 +99,7 @@ const Navbar = () => {
           </div>
 
           <div className="hidden md:flex items-center space-x-4">
-          <button
+            <button
               onClick={() => setTheme(isDarkMode ? "light" : "dark")}
               className="p-2 text-gray-500 hover:text-indigo-600 bg-gray-50 hover:bg-indigo-50 rounded-xl transition-all shadow-sm border border-gray-100 flex items-center justify-center active:scale-95 cursor-pointer"
               title={
@@ -177,7 +177,6 @@ const Navbar = () => {
                 </Link>
               </div>
             )}
- 
           </div>
           <div className="flex items-center space-x-3 md:hidden">
             <button
@@ -254,6 +253,13 @@ const Navbar = () => {
                 className="block px-3 py-2 rounded-xl text-base font-semibold text-gray-700 dark:text-gray-300 hover:bg-violet-50 dark:hover:bg-gray-800 hover:text-violet-600"
               >
                 Profile Management
+              </Link>
+              <Link
+                href="/savedIdeas"
+                onClick={() => setIsMobileMenuOpen(false)}
+                className="block px-3 py-2 rounded-xl text-base font-semibold text-gray-700 dark:text-gray-300 hover:bg-rose-50 dark:hover:bg-rose-950/30 hover:text-rose-600 dark:hover:text-rose-400"
+              >
+                Bookmark
               </Link>
               <button
                 onClick={handleLogout}
