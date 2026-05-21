@@ -26,7 +26,6 @@ const { token } = await auth.api.getToken({
 
 const idea = await getSinglesIdea(id, token);
  
-  
 
   const {
     title,

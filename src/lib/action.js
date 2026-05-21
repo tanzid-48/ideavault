@@ -24,7 +24,7 @@ export const createIdea = async (formData) => {
     userName: session?.user?.name,
   };
 
-  const res = await fetch("http://localhost:5000/ideas", {
+  const res = await fetch("https://ideavault-server-ah86.onrender.com/ideas", {
     method: "POST",
     headers: {
       "Content-type": "application/json",
@@ -44,7 +44,7 @@ export const createIdea = async (formData) => {
 };
 // delete idea
 export const deleteIdea = async (id) => {
-  const res = await fetch(`http://localhost:5000/ideas/${id}`, {
+  const res = await fetch(`https://ideavault-server-ah86.onrender.com/ideas/${id}`, {
     method: "DELETE",
   });
   if (!res.ok) return { success: false };
@@ -53,7 +53,7 @@ export const deleteIdea = async (id) => {
 };
 // updated idea
 export const updateIdea = async (id, updatedData) => {
-  const res = await fetch(`http://localhost:5000/ideas/${id}`, {
+  const res = await fetch(`https://ideavault-server-ah86.onrender.com/ideas/${id}`, {
     method: "PATCH",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify(updatedData),
@@ -74,7 +74,7 @@ export const postComment = async (commentData) => {
   const { token } = await auth.api.getToken({
     headers: await headers(),
   });
-  const res = await fetch("http://localhost:5000/comment", {
+  const res = await fetch("https://ideavault-server-ah86.onrender.com/comment", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -97,7 +97,7 @@ export const postComment = async (commentData) => {
 
 // Delete Comment
 export const deleteComment = async (commentId, ideaId) => {
-  const res = await fetch(`http://localhost:5000/comment/${commentId}`, {
+  const res = await fetch(`https://ideavault-server-ah86.onrender.com/comment/${commentId}`, {
     method: "DELETE",
   });
 
@@ -114,7 +114,7 @@ export const deleteComment = async (commentId, ideaId) => {
 
 // Update Comment
 export const updateComment = async (commentId, newText, ideaId) => {
-  const res = await fetch(`http://localhost:5000/comment/${commentId}`, {
+  const res = await fetch(`https://ideavault-server-ah86.onrender.com/comment/${commentId}`, {
     method: "PATCH",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({ text: newText }),

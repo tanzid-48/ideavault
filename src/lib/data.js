@@ -7,7 +7,7 @@ export const getAllIdeas = async (filters = {}) => {
     if (filters.category) params.append("category", filters.category);
 
     const res = await fetch(
-      `http://localhost:5000/ideas?${params.toString()}`,
+      `https://ideavault-server-ah86.onrender.com/ideas?${params.toString()}`,
       {
         cache: "no-store",
       },
@@ -23,24 +23,27 @@ export const getAllIdeas = async (filters = {}) => {
 
 // get a single idea to show details
 export const getSinglesIdea = async (_id, token) => {
-  const res = await fetch(`http://localhost:5000/ideas/${_id}`, {
-    headers: {
-      authorization: `Bearer ${token}`,
-    },
-    cache: "no-store",
-  });
+  try {
+    const res = await fetch(`https://ideavault-server-ah86.onrender.com/ideas/${_id}`, {
+      headers: {
+        authorization: `Bearer ${token}`,
+      },
+      cache: "no-store",
+    });
 
-  if (!res.ok) {
-    throw new Error("Failed to fetch the requested idea");
+    if (!res.ok) return null; 
+
+    return res.json();
+  } catch (error) {
+    console.error("getSinglesIdea error:", error);
+    return null;
   }
-
-  return res.json();
 };
 
 // Trending Ideas Section
 
 export const getTrendingIdeas = async () => {
-  const res = await fetch("http://localhost:5000/trending-ideas", {
+  const res = await fetch("https://ideavault-server-ah86.onrender.com/trending-ideas", {
     cache: "no-store",
   });
 
@@ -55,7 +58,7 @@ export const getTrendingIdeas = async () => {
 // get comment data
 export const getMyComments = async (userId, token) => {
   try {
-    const res = await fetch(`http://localhost:5000/comment?userId=${userId}`, {
+    const res = await fetch(`https://ideavault-server-ah86.onrender.com/comment?userId=${userId}`, {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
@@ -73,7 +76,7 @@ export const getMyComments = async (userId, token) => {
 };
 // my ideas
 export const getMyIdeas = async (userId) => {
-  const res = await fetch(`http://localhost:5000/ideas?userId=${userId}`, {
+  const res = await fetch(`https://ideavault-server-ah86.onrender.com/ideas?userId=${userId}`, {
     cache: "no-store",
   });
   if (!res.ok) return [];
