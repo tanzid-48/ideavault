@@ -19,9 +19,14 @@ export const getAllIdeas = async (filters = {}) => {
 };
 
 // get a single idea to show details
-export const getSinglesIdea = async (_id) => {
-  const res = await fetch(`http://localhost:5000/ideas/${_id}`);
-
+export const getSinglesIdea = async (_id,token) => {
+  const res = await fetch(`http://localhost:5000/ideas/${_id}`,
+    {
+    headers: {
+      authorization: `Bearer ${token}`,
+    }
+  });
+  
   if (!res.ok) {
     throw new Error("Failed to fetch the requested idea");
   }

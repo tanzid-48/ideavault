@@ -4,10 +4,18 @@ import Image from "next/image";
 import { ArrowLeft } from "lucide-react";
 import Link from "next/link";
 import CommentSection from "@/components/CommentSection";
+import { auth } from "@/lib/auth";
+import { headers } from "next/headers";
 
 const DetailsPage = async ({ params }) => {
   const { id } = await params;
-  const idea = await getSinglesIdea(id);
+  // JWT 
+  const {token} = await auth.api.getToken({
+    headers: await headers()
+  });
+
+  const idea = await getSinglesIdea(id, token);
+  
 
   const {
     title,
