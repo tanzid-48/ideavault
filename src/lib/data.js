@@ -6,9 +6,12 @@ export const getAllIdeas = async (filters = {}) => {
     if (filters.search) params.append("search", filters.search);
     if (filters.category) params.append("category", filters.category);
 
-    const res = await fetch(`http://localhost:5000/ideas?${params.toString()}`, {
-      cache: "no-store",
-    });
+    const res = await fetch(
+      `http://localhost:5000/ideas?${params.toString()}`,
+      {
+        cache: "no-store",
+      },
+    );
 
     if (!res.ok) return [];
     return await res.json();
@@ -19,14 +22,14 @@ export const getAllIdeas = async (filters = {}) => {
 };
 
 // get a single idea to show details
-export const getSinglesIdea = async (_id,token) => {
-  const res = await fetch(`http://localhost:5000/ideas/${_id}`,
-    {
+export const getSinglesIdea = async (_id, token) => {
+  const res = await fetch(`http://localhost:5000/ideas/${_id}`, {
     headers: {
       authorization: `Bearer ${token}`,
-    }
+    },
+    cache: "no-store",
   });
-  
+
   if (!res.ok) {
     throw new Error("Failed to fetch the requested idea");
   }
@@ -50,9 +53,14 @@ export const getTrendingIdeas = async () => {
 };
 
 // get comment data
-export const getMyComments = async (userId) => {
+export const getMyComments = async (userId, token) => {
   try {
     const res = await fetch(`http://localhost:5000/comment?userId=${userId}`, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        "authorization": `Bearer ${token}`, 
+      },
       cache: "no-store",
     });
 

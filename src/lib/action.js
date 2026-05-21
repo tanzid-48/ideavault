@@ -10,19 +10,27 @@ export const createIdea = async (formData) => {
   const session = await auth.api.getSession({
     headers: await headers(),
   });
+  // JWT TOKEN
+  const { token } = await auth.api.getToken({
+    headers: await headers(),
+  });
+
   const newIdea = getCleanFormData(formData);
 
-
   const ideaWithUser = {
-  ...newIdea,
-  userId: session?.user?.id,    
-  userEmail: session?.user?.email, 
-  userName: session?.user?.name,
-};
+    ...newIdea,
+    userId: session?.user?.id,
+    userEmail: session?.user?.email,
+    userName: session?.user?.name,
+  };
 
   const res = await fetch("http://localhost:5000/ideas", {
     method: "POST",
-    headers: { "Content-type": "application/json" },
+    headers: {
+      "Content-type": "application/json",
+      authorization: `Bearer ${token}`,
+    },
+
     body: JSON.stringify(ideaWithUser),
   });
 
@@ -59,10 +67,18 @@ export const updateIdea = async (id, updatedData) => {
 // Post data in to Database
 
 export const postComment = async (commentData) => {
+  const session = await auth.api.getSession({
+    headers: await headers(),
+  });
+  // JWT TOKEN
+  const { token } = await auth.api.getToken({
+    headers: await headers(),
+  });
   const res = await fetch("http://localhost:5000/comment", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
+      authorization: `Bearer ${token}`,
     },
     body: JSON.stringify(commentData),
   });

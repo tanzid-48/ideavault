@@ -5,10 +5,15 @@ import React from "react";
 import { auth } from "@/lib/auth";
 
 const MyInteractionsPage = async () => {
+  const session = await auth.api.getSession({
+    headers: await headers(),
+  });
+  const userId = session?.user?.id;
 
-const session = await auth.api.getSession({ headers: await headers() });
-const userId = session?.user?.id;
-const userComments = await getMyComments(userId);
+  const { token } = await auth.api.getToken({
+    headers: await headers(),
+  });
+  const userComments = await getMyComments(userId, token);
 
   return (
     <div className="max-w-4xl mx-auto p-6 space-y-6 min-h-screen">

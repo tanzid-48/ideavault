@@ -23,11 +23,10 @@ const categories = [
   "E-commerce",
   "SaaS",
 ];
-
-const AddIdeaPage = () => {
+const AddIdeaPage = async() => {
   const inputBaseStyles =
     "w-full px-4 py-3 rounded-2xl border border-gray-200 dark:border-zinc-800 bg-gray-100/70 hover:bg-gray-200/60 dark:bg-zinc-900/60 dark:hover:bg-zinc-800/70 text-gray-900 dark:text-zinc-100 text-sm font-medium focus:bg-white dark:focus:bg-black focus:ring-2 focus:ring-indigo-500/80 focus:border-transparent outline-none transition-all duration-200 placeholder:text-gray-400 dark:placeholder:text-zinc-500 shadow-inner";
-
+    
   return (
     <div className="w-full min-h-screen bg-slate-50 dark:bg-black px-4 sm:px-6 py-12 transition-colors duration-300">
       <div className="max-w-4xl mx-auto">
