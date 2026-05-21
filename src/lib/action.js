@@ -130,3 +130,16 @@ export const updateComment = async (commentId, newText, ideaId) => {
   revalidatePath("/myInteractions");
   return { success: true, message: "Comment updated!" };
 };
+
+// save Idea in BookMark
+
+export const saveIdea = async (ideaId, userId) => {
+  const res = await fetch("https://ideavault-server-ah86.onrender.com/saved", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ ideaId, userId }),
+  });
+  if (!res.ok) return { success: false };
+  revalidatePath("/savedIdeas");
+  return { success: true };
+};

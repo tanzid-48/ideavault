@@ -82,3 +82,21 @@ export const getMyIdeas = async (userId) => {
   if (!res.ok) return [];
   return await res.json();
 };
+
+// save data fetch for Bookmark
+export const getSavedIdeas = async (userId) => {
+  const res = await fetch(`https://ideavault-server-ah86.onrender.com/saved?userId=${userId}`, {
+    cache: "no-store",
+  });
+  if (!res.ok) return [];
+  return await res.json();
+};
+// Check saved status
+export const checkSaved = async (userId, ideaId) => {
+  const res = await fetch(`https://ideavault-server-ah86.onrender.com/saved?userId=${userId}`, {
+    cache: "no-store",
+  });
+  if (!res.ok) return false;
+  const saved = await res.json();
+  return saved.some(idea => idea._id === ideaId);
+};

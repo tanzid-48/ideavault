@@ -78,7 +78,6 @@ const ProfilePage = async () => {
     <div className="w-full min-h-screen bg-gray-100 dark:bg-zinc-950 flex items-start justify-center px-4 py-12">
       <div className="w-full max-w-md flex flex-col gap-4">
 
-        {/* ── Profile Card ── */}
         <div className="bg-white dark:bg-zinc-900 border border-gray-200 dark:border-zinc-800 rounded-3xl overflow-hidden shadow-sm">
 
           {/* Banner */}
@@ -126,7 +125,7 @@ const ProfilePage = async () => {
               </span>
             </div>
 
-            {/* Quick Link Cards — 4টা আলাদা style */}
+         
             <div className="grid grid-cols-4 gap-2.5 mt-6 w-full">
               {quickLinks.map(({ href, icon: Icon, label, color, bg, border, hover }) => (
                 <Link key={label} href={href}
@@ -146,13 +145,13 @@ const ProfilePage = async () => {
           </div>
         </div>
 
-        {/* ── Recent Ideas ── */}
+    
         <div className="bg-white dark:bg-zinc-900 border border-gray-200 dark:border-zinc-800 rounded-3xl p-5">
           <div className="flex items-center justify-between mb-4">
             <h2 className="text-sm font-bold text-gray-900 dark:text-white flex items-center gap-2">
               <HiOutlineLightBulb className="h-4 w-4 text-indigo-500" /> Recent Ideas
             </h2>
-            <Link href="/myIdeas"
+            <Link href="/ideas"
               className="text-xs font-semibold text-indigo-600 dark:text-indigo-400 flex items-center gap-1 hover:underline">
               View all <FiArrowUpRight className="h-3 w-3" />
             </Link>
