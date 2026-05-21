@@ -1,6 +1,6 @@
 import { auth } from "@/lib/auth";
 import { headers } from "next/headers";
-import { getMyIdeas, getMyComments } from "@/lib/data";
+import { getMyIdeas } from "@/lib/data";
 import { FiEdit2, FiMail, FiCalendar, FiArrowUpRight, FiBookmark, FiMessageSquare } from "react-icons/fi";
 import { HiOutlineLightBulb } from "react-icons/hi";
 import Image from "next/image";
@@ -9,7 +9,6 @@ import Link from "next/link";
 const ProfilePage = async () => {
   const session = await auth.api.getSession({ headers: await headers() });
   const user = session?.user;
-
 
   if (!user) {
     return (
@@ -36,24 +35,51 @@ const ProfilePage = async () => {
     ? new Date(user.createdAt).toLocaleDateString("en-US", { month: "long", year: "numeric" })
     : "May 2026";
 
-  const stats = [
-    { label: "Ideas",        value: ideas.length, href: "/myIdeas"        },
-    { label: "Interactions", value: 12,            href: "/myInteractions" },
-    { label: "Saved",        value: 5,             href: "/savedIdeas"     },
-  ];
-
   const quickLinks = [
-    { href: "/myIdeas",        icon: HiOutlineLightBulb, label: "My Ideas",     color: "text-indigo-500", bg: "bg-indigo-50 dark:bg-indigo-950/40"  },
-    { href: "/myInteractions", icon: FiMessageSquare,    label: "Interactions", color: "text-sky-500",    bg: "bg-sky-50 dark:bg-sky-950/40"         },
-    { href: "/savedIdeas",     icon: FiBookmark,          label: "Saved",        color: "text-amber-500",  bg: "bg-amber-50 dark:bg-amber-950/40"    },
+    {
+      href: "/myIdeas",
+      icon: HiOutlineLightBulb,
+      label: "My Ideas",
+      color: "text-indigo-600 dark:text-indigo-400",
+      bg: "bg-indigo-50 dark:bg-indigo-950/50",
+      border: "border-indigo-100 dark:border-indigo-900/40",
+      hover: "hover:bg-indigo-50 dark:hover:bg-indigo-950/30 hover:border-indigo-200 dark:hover:border-indigo-800",
+    },
+    {
+      href: "/myInteractions",
+      icon: FiMessageSquare,
+      label: "Interactions",
+      color: "text-sky-600 dark:text-sky-400",
+      bg: "bg-sky-50 dark:bg-sky-950/50",
+      border: "border-sky-100 dark:border-sky-900/40",
+      hover: "hover:bg-sky-50 dark:hover:bg-sky-950/30 hover:border-sky-200 dark:hover:border-sky-800",
+    },
+    {
+      href: "/savedIdeas",
+      icon: FiBookmark,
+      label: "Saved",
+      color: "text-amber-600 dark:text-amber-400",
+      bg: "bg-amber-50 dark:bg-amber-950/50",
+      border: "border-amber-100 dark:border-amber-900/40",
+      hover: "hover:bg-amber-50 dark:hover:bg-amber-950/30 hover:border-amber-200 dark:hover:border-amber-800",
+    },
+    {
+      href: "/bookmarks",
+      icon: FiBookmark,
+      label: "Bookmark",
+      color: "text-rose-600 dark:text-rose-400",
+      bg: "bg-rose-50 dark:bg-rose-950/50",
+      border: "border-rose-100 dark:border-rose-900/40",
+      hover: "hover:bg-rose-50 dark:hover:bg-rose-950/30 hover:border-rose-200 dark:hover:border-rose-800",
+    },
   ];
 
   return (
-    <div className="w-full min-h-screen bg-gray-50 dark:bg-zinc-950 flex items-start justify-center px-4 py-12">
+    <div className="w-full min-h-screen bg-gray-100 dark:bg-zinc-950 flex items-start justify-center px-4 py-12">
       <div className="w-full max-w-md flex flex-col gap-4">
 
         {/* ── Profile Card ── */}
-        <div className="bg-white dark:bg-zinc-900 border border-gray-100 dark:border-zinc-800 rounded-3xl overflow-hidden shadow-sm">
+        <div className="bg-white dark:bg-zinc-900 border border-gray-200 dark:border-zinc-800 rounded-3xl overflow-hidden shadow-sm">
 
           {/* Banner */}
           <div className="relative h-32 bg-gradient-to-r from-indigo-500 via-violet-500 to-purple-500 overflow-hidden">
@@ -100,42 +126,28 @@ const ProfilePage = async () => {
               </span>
             </div>
 
-            {/* Stats — image 2 এর মতো */}
-            <div className="grid grid-cols-3 gap-4 mt-6 pt-5 border-t border-gray-100 dark:border-zinc-800 w-full">
-              {stats.map((s) => (
-                <Link key={s.label} href={s.href}
-                  className="flex flex-col items-center gap-0.5 hover:opacity-75 transition-opacity">
-                  <span className="text-2xl font-black text-gray-900 dark:text-white">{s.value}</span>
-                  <span className="text-[11px] text-gray-400 dark:text-zinc-500 font-medium">{s.label}</span>
+            {/* Quick Link Cards — 4টা আলাদা style */}
+            <div className="grid grid-cols-4 gap-2.5 mt-6 w-full">
+              {quickLinks.map(({ href, icon: Icon, label, color, bg, border, hover }) => (
+                <Link key={label} href={href}
+                  className={`flex flex-col items-center gap-2 p-3 rounded-2xl border ${border} ${hover} transition-all duration-200 hover:-translate-y-0.5`}>
+                  <div className={`p-2 rounded-xl ${bg}`}>
+                    <Icon className={`h-4 w-4 ${color}`} />
+                  </div>
+                  <span className={`text-[10px] font-semibold ${color} text-center leading-tight`}>{label}</span>
                 </Link>
               ))}
             </div>
 
             <Link href="/myIdeas"
-              className="mt-6 w-full flex items-center justify-center py-2.5 rounded-2xl bg-gradient-to-r from-indigo-500 to-violet-500 text-white text-sm font-bold hover:opacity-90 transition-opacity">
+              className="mt-5 w-full flex items-center justify-center py-2.5 rounded-2xl bg-gradient-to-r from-indigo-500 to-violet-500 text-white text-sm font-bold hover:opacity-90 transition-opacity">
               Show more
             </Link>
           </div>
         </div>
 
-        {/* ── Quick Links — image 1 এর মতো 4 card ── */}
-        <div className="grid grid-cols-4 gap-3">
-          {[
-            ...quickLinks,
-            { href: "/savedIdeas", icon: FiBookmark, label: "Bookmark", color: "text-amber-500", bg: "bg-amber-50 dark:bg-amber-950/40" },
-          ].map(({ href, icon: Icon, label, color, bg }) => (
-            <Link key={label} href={href}
-              className="bg-white dark:bg-zinc-900 border border-gray-100 dark:border-zinc-800 rounded-2xl p-4 flex flex-col items-center gap-2.5 hover:-translate-y-0.5 hover:shadow-sm transition-all duration-200">
-              <div className={`p-2.5 rounded-xl ${bg}`}>
-                <Icon className={`h-4 w-4 ${color}`} />
-              </div>
-              <span className="text-[11px] font-semibold text-gray-700 dark:text-zinc-300 text-center leading-tight">{label}</span>
-            </Link>
-          ))}
-        </div>
-
         {/* ── Recent Ideas ── */}
-        <div className="bg-white dark:bg-zinc-900 border border-gray-100 dark:border-zinc-800 rounded-3xl p-5">
+        <div className="bg-white dark:bg-zinc-900 border border-gray-200 dark:border-zinc-800 rounded-3xl p-5">
           <div className="flex items-center justify-between mb-4">
             <h2 className="text-sm font-bold text-gray-900 dark:text-white flex items-center gap-2">
               <HiOutlineLightBulb className="h-4 w-4 text-indigo-500" /> Recent Ideas
@@ -156,12 +168,14 @@ const ProfilePage = async () => {
               </Link>
             </div>
           ) : (
-            <div className="flex flex-col divide-y divide-gray-50 dark:divide-zinc-800">
+            <div className="flex flex-col divide-y divide-gray-100 dark:divide-zinc-800">
               {recentIdeas.map((idea) => (
                 <Link href={`/ideas/${idea._id}`} key={idea._id}
-                  className="group flex items-center gap-3 py-3 hover:opacity-75 transition-opacity">
-                  <div className="w-10 h-10 rounded-xl overflow-hidden flex-shrink-0 bg-gray-100 dark:bg-zinc-800">
-                    {idea.image && <Image src={idea.image} alt={idea.title} fill  className="w-full h-full object-cover" />}
+                  className="group flex items-center gap-3 py-3 rounded-xl hover:bg-gray-50 dark:hover:bg-zinc-800/50 px-2 transition-all duration-200">
+                  <div className="relative w-10 h-10 rounded-xl overflow-hidden flex-shrink-0 bg-gray-100 dark:bg-zinc-800">
+                    {idea.image && (
+                      <Image src={idea.image} alt={idea.title} fill className="object-cover" />
+                    )}
                   </div>
                   <div className="flex-1 min-w-0">
                     <p className="text-sm font-semibold text-gray-900 dark:text-white truncate">{idea.title}</p>
