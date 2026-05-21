@@ -8,6 +8,12 @@ import { headers } from "next/headers";
 import { auth } from "@/lib/auth";
 
 
+export const metadata = {
+ title: `Idea Details | IdeaVault`,
+    description: "View detailed breakdown, problem statements, and solutions for this idea.",
+};
+
+
 const DetailsPage = async ({ params }) => {
   const { id } = await params;
   const session = await auth.api.getSession({

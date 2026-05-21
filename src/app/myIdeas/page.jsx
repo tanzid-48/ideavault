@@ -5,6 +5,12 @@ import { PlusCircle } from "lucide-react";
 import { headers } from "next/headers";
 import { auth } from "@/lib/auth";
 
+export const metadata = {
+ title: `My Idea | IdeaVault`,
+    description: "Seen your Idea with problem statements, and solutions for this idea.",
+};
+
+
 const MyIdeasPage = async () => {
 
  const session = await auth.api.getSession({ headers: await headers() });

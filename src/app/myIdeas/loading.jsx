@@ -1,5 +1,10 @@
 import React from "react";
 
+export const metadata = {
+  title: "My Ideas | IdeaVault",
+  description: "Manage and view all the innovative ideas you have submitted.",
+};
+
 const MyIdeasLoading = () => {
   return (
     <div className="flex flex-col items-center justify-center min-h-[70vh] space-y-4">

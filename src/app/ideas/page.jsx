@@ -4,6 +4,11 @@ import { getAllIdeas } from "@/lib/data";
 
 import React from "react";
 
+export const metadata = {
+  title: "All Ideas | IdeaVault",
+  description: "Explore innovative ideas and tech solutions shared by the community.",
+};
+
 const AllIdeaPage = async ({ searchParams }) => {
   const filters = await searchParams;
   const ideas = await getAllIdeas(filters);

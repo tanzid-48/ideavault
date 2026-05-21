@@ -4,6 +4,11 @@ import { headers } from "next/headers";
 import React from "react";
 import { auth } from "@/lib/auth";
 
+export const metadata = {
+  title: "My Interactions | IdeaVault",
+  description: "Track your comments, feedback, and engagement on various ideas.",
+};
+
 const MyInteractionsPage = async () => {
   const session = await auth.api.getSession({
     headers: await headers(),
