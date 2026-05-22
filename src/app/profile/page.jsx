@@ -203,7 +203,7 @@ const ProfilePage = async () => {
             <div className="flex flex-col divide-y divide-gray-100 dark:divide-zinc-800">
               {recentIdeas.map((idea) => (
                 <Link
-                  href={`/ideas/${idea._id}`}
+                  href={`/myIdeas`}
                   key={idea._id}
                   className="group flex items-center gap-3 py-3 rounded-xl hover:bg-gray-50 dark:hover:bg-zinc-800/50 px-2 transition-all duration-200"
                 >

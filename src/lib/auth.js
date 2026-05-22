@@ -32,6 +32,11 @@ export const auth = betterAuth({
    
      plugins: [
         jwt(), 
-    ]
+    ],
+     user: {
+    additionalFields: {
+      image: { type: "string", required: false },
+    },
+  },
 
 });
