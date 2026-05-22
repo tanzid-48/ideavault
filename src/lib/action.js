@@ -146,7 +146,7 @@ export const saveIdea = async (ideaId, userId) => {
 // unsave Idea in BookMark
 
 export const unsaveIdea = async (ideaId, userId) => {
-  const res = await fetch(`http://localhost:5000/saved/${ideaId}?userId=${userId}`, {
+  const res = await fetch(`https://ideavault-server-ah86.onrender.com/saved/${ideaId}?userId=${userId}`, {
     method: "DELETE",
   });
   if (!res.ok) return { success: false };
