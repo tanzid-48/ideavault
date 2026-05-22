@@ -125,7 +125,7 @@ const LoginPage = () => {
             >
               Remember me
             </Checkbox>
-            <Link href="/forgot-password" className="text-indigo-600 hover:underline font-medium">
+            <Link href="/signup" className="text-indigo-600 hover:underline font-medium">
               Forgot password?
             </Link>
           </div>
