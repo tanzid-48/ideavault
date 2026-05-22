@@ -29,7 +29,7 @@ export const config = {
     "/myIdeas",
     "/myInteractions",
     "/addIdea/:path*",
-    // "/profile",
+    "/profile",
     "/ideas/:path*",
   ],
 };

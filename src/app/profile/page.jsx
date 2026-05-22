@@ -142,7 +142,7 @@ const ProfilePage = async () => {
               </span>
             </div>
 
-            <div className="grid grid-cols-4 gap-2.5 mt-6 w-full">
+            <div className="grid grid-cols-3 gap-3 mt-6 w-full">
               {quickLinks.map(
                 ({ href, icon: Icon, label, color, bg, border, hover }) => (
                   <Link
