@@ -14,6 +14,7 @@ import {
   PlusCircle,
   Folder,
   MessageSquare,
+  Bookmark,
 } from "lucide-react";
 import { HiOutlineSun, HiOutlineMoon } from "react-icons/hi";
 import { useTheme } from "next-themes";
@@ -76,7 +77,6 @@ const Navbar = () => {
             </Link>
           </div>
 
-          {/* Desktop Navigation - সবগুলো লিংক ওপেন করে দেওয়া হয়েছে */}
           <div className="hidden md:flex items-center space-x-8">
             <Link href="/" className={navLink("/")}>
               <span>Home</span>
@@ -150,6 +150,14 @@ const Navbar = () => {
                       <Settings className="h-4 w-4" />
                       <span>Profile Management</span>
                     </Link>
+                    <Link
+                      href="/savedIdeas"
+                      onClick={() => setIsProfileOpen(false)}
+                      className="flex items-center space-x-2 px-4 py-2.5 text-sm font-medium text-gray-600 dark:text-gray-400 hover:bg-emerald-50 dark:hover:bg-emerald-950/30 hover:text-emerald-600 dark:hover:text-emerald-400 transition-colors"
+                    >
+                      <Bookmark className="h-4 w-4" />
+                      <span>Bookmark</span>
+                    </Link>
 
                     <button
                       onClick={handleLogout}
@@ -204,7 +212,6 @@ const Navbar = () => {
         </div>
       </div>
 
-      {/* Mobile Menu - এখানেও কন্ডিশন ছাড়া সব লিংক ওপেন করা হয়েছে */}
       {isMobileMenuOpen && (
         <div className="md:hidden bg-white dark:bg-gray-900 border-t border-gray-100 dark:border-gray-800 px-4 pt-2 pb-4 space-y-1.5 shadow-inner">
           <Link
@@ -257,7 +264,7 @@ const Navbar = () => {
               <Link
                 href="/savedIdeas"
                 onClick={() => setIsMobileMenuOpen(false)}
-                className="block px-3 py-2 rounded-xl text-base font-semibold text-gray-700 dark:text-gray-300 hover:bg-rose-50 dark:hover:bg-rose-950/30 hover:text-rose-600 dark:hover:text-rose-400"
+               className="flex items-center space-x-2 px-4 py-2.5 text-sm font-medium text-gray-600 dark:text-gray-400 hover:bg-emerald-50 dark:hover:bg-emerald-950/30 hover:text-emerald-600 dark:hover:text-emerald-400 transition-colors"
               >
                 Bookmark
               </Link>
